@@ -1,0 +1,12 @@
+STARTED: running tests in assembly MyNUnit.ExcInBefore.dll
+UNHANDLED EXCEPTION: Exception has been thrown by the target of an invocation.
+WITH EXCEPTION: System.NullReferenceException
+WITH EXCEPTION MSG: Object reference not set to an instance of an object.
+GET FROM TestBefore
+PROBLEM: there is exception in method which annotated with Before
+Total number of tests: 1
+Succeeded:             0
+Ignored:               0
+Failed:                1
+FINISHED: running tests in assembly MyNUnit.ExcInBefore.dll
+
