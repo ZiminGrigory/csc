@@ -27,7 +27,7 @@ namespace Trie
     {
         public Trie()
         {
-             _root = new Node();
+             Root = new Node();
         }
 
         public bool Add(string element)
@@ -35,13 +35,13 @@ namespace Trie
             if (Contains(element))
                 return false;
 
-            TraverseAndCreate(_root, element, 0);
+            TraverseAndCreate(Root, element, 0);
             return true;
         }
 
         public bool Contains(string element)
         {
-            Node tmp = _root;
+            Node tmp = Root;
             foreach(char ch in element)
             {
                 if (tmp.Children.ContainsKey(ch))
@@ -62,7 +62,7 @@ namespace Trie
             if (!Contains(element))
                 return false;
 
-            Node tmp = _root;
+            Node tmp = Root;
             tmp.Size--;
             foreach(char ch in element)
             {
@@ -82,12 +82,12 @@ namespace Trie
 
         public int Size()
         {
-            return _root.Size;
+            return Root.Size;
         }
 
         public int HowManyStartsWithPrefix(string element)
         {
-            Node tmp = _root;
+            Node tmp = Root;
             foreach(char ch in element)
             {
                 if (tmp.Children.ContainsKey(ch))
@@ -140,6 +140,6 @@ namespace Trie
             public int Size { get; set; }
         }
 
-        private readonly Node _root;
+        private Node Root { get; }
     }
 }
