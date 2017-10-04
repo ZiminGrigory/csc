@@ -1,48 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Trie
 {
-    public interface ITrie
-    {    
-        /// Expected complexity: O(|element|)
-        /// Returns true if this set did not already contain the specified element
-        bool Add(string element);
-
-        /// Expected complexity: O(|element|)
-        bool Contains(string element);
-
-        /// Expected complexity: O(|element|)
-        /// Returns true if this set contained the specified element
-        bool Remove(string element);
-
-        /// Expected complexity: O(1)
-        int Size();
-
-        /// Expected complexity: O(|prefix|)
-        int HowManyStartsWithPrefix(string prefix);
-    }
-
     public class Trie : ITrie
     {
         public Trie()
         {
-             Root = new Node();
+             _root = new Node();
         }
 
         public bool Add(string element)
         {
             if (Contains(element))
+            {
                 return false;
+            }
 
-            TraverseAndCreate(Root, element, 0);
+            TraverseAndCreate(_root, element, 0);
             return true;
         }
 
         public bool Contains(string element)
         {
-            Node tmp = Root;
-            foreach(char ch in element)
+            Node tmp = _root;
+            foreach (var ch in element)
             {
                 if (tmp.Children.ContainsKey(ch))
                 {
@@ -60,11 +41,13 @@ namespace Trie
         public bool Remove(string element)
         {
             if (!Contains(element))
+            {
                 return false;
+            }
 
-            Node tmp = Root;
-            tmp.Size--;
-            foreach(char ch in element)
+            Node tmp = _root;
+            --tmp.Size;
+            foreach (var ch in element)
             {
                 if (tmp.Size == 0)
                 {
@@ -73,7 +56,7 @@ namespace Trie
                 }
 
                 tmp = tmp.Children[ch];
-                tmp.Size--;
+                --tmp.Size;
             }
 
             tmp.IsTerminal = false;
@@ -82,13 +65,13 @@ namespace Trie
 
         public int Size()
         {
-            return Root.Size;
+            return _root.Size;
         }
 
         public int HowManyStartsWithPrefix(string element)
         {
-            Node tmp = Root;
-            foreach(char ch in element)
+            Node tmp = _root;
+            foreach(var ch in element)
             {
                 if (tmp.Children.ContainsKey(ch))
                 {
@@ -107,7 +90,7 @@ namespace Trie
         {
             while (true)
             {
-                root.Size++;
+                ++root.Size;
                 if (pathPosition == path.Length)
                 {
                     root.IsTerminal = true;
@@ -124,7 +107,7 @@ namespace Trie
                 var newNode = new Node();
                 root.Children.Add(next, newNode);
                 root = newNode;
-                pathPosition++;
+                ++pathPosition;
             }
         }
 
@@ -136,10 +119,10 @@ namespace Trie
             }
 
             public bool IsTerminal { get; set; }
-            public Dictionary<char, Node> Children { get; }
             public int Size { get; set; }
+            public readonly Dictionary<char, Node> Children;
         }
 
-        private Node Root { get; }
+        private readonly Node _root;
     }
 }

@@ -1,139 +1,157 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Trie;
 
 namespace TrieTests
 {
-    [TestClass()]
+    [TestClass]
     public class TrieTests
     {
-        [TestMethod()]
+        private ITrie TrieForTest { get; set; }
+        private readonly string[] _baseSourceString = {"a", "aa", "aaa", "aab", "aac"};
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            TrieForTest = null;
+        }
+
+        [TestInitialize]
+        public void TestInit()
+        {
+            TrieForTest = new Trie.Trie();
+        }
+
+        [TestMethod]
         public void TrieTest()
         {
-            ITrie trie = new Trie.Trie();
-            Assert.IsNotNull(trie);
+            Assert.IsNotNull(TrieForTest);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void AddTest()
         {
-            ITrie trie = new Trie.Trie();
-            Assert.IsTrue(trie.Add("a"));
-            Assert.IsTrue(trie.Add("aa"));
-            Assert.IsTrue(trie.Add("aaa"));
-            Assert.IsTrue(trie.Add("aab"));
-            Assert.IsTrue(trie.Add("aac"));
+            bool result = TrieForTest.Add("a");
+            bool result1 = TrieForTest.Add("aa");
+            bool result2 = TrieForTest.Add("aaa");
+            bool result3 = TrieForTest.Add("aab");
+            bool result4 = TrieForTest.Add("aac");
+
+            Assert.IsTrue(result);
+            Assert.IsTrue(result1);
+            Assert.IsTrue(result2);
+            Assert.IsTrue(result3);
+            Assert.IsTrue(result4);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ContainsTest()
         {
-            ITrie trie = new Trie.Trie();
-            trie.Add("a");
-            trie.Add("aa");
-            trie.Add("aaa");
-            trie.Add("aab");
-            trie.Add("aac");
-            Assert.IsFalse(trie.Contains(""));
-            Assert.IsTrue(trie.Contains("a"));
-            Assert.IsTrue(trie.Contains("aa"));
-            Assert.IsTrue(trie.Contains("aaa"));
-            Assert.IsTrue(trie.Contains("aab"));
-            Assert.IsTrue(trie.Contains("aac"));
+            foreach (var str in _baseSourceString)
+            {
+                TrieForTest.Add(str);
+            }
+
+            Assert.IsFalse(TrieForTest.Contains(""));
+            foreach (var str in _baseSourceString)
+            {
+                Assert.IsTrue(TrieForTest.Contains(str));
+            }
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void RemoveTest()
         {
-            ITrie trie = new Trie.Trie();
-            trie.Add("a");
-            trie.Add("aa");
-            trie.Add("aaa");
-            trie.Add("aab");
-            trie.Add("aac");
-            Assert.IsTrue(trie.Remove("a"));
-            Assert.IsFalse(trie.Remove("a"));
-            Assert.IsFalse(trie.Remove(""));
+            foreach (var str in _baseSourceString)
+            {
+                TrieForTest.Add(str);
+            }
+
+            bool result = TrieForTest.Remove("a");
+            bool result1 = TrieForTest.Remove("a");
+            bool result2 = TrieForTest.Remove("");
+
+            Assert.IsTrue(result);
+            Assert.IsFalse(result1);
+            Assert.IsFalse(result2);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void SizeTest()
         {
-            ITrie trie = new Trie.Trie();
-            Assert.AreEqual(0, trie.Size());
-            trie.Add("a");
-            Assert.AreEqual(1, trie.Size());
-            trie.Add("aa");
-            Assert.AreEqual(2, trie.Size());
-            trie.Add("aaa");
-            Assert.AreEqual(3, trie.Size());
-            trie.Add("aab");
-            Assert.AreEqual(4, trie.Size());
-            trie.Add("aac");
-            Assert.AreEqual(5, trie.Size());
+            for (var i = 0; i < 42; ++i)
+            {
+                foreach (var str in _baseSourceString)
+                {
+                    TrieForTest.Add(str);
+                }
 
-            trie.Add("a");
-            trie.Add("aa");
-            trie.Add("aaa");
-            trie.Add("aab");
-            trie.Add("aac");
-            Assert.AreEqual(5, trie.Size());
+                Assert.AreEqual(5, TrieForTest.Size());
+            }
         }
 
-        [TestMethod()]
-        public void HowManyStartsWithPrefixTest()
+        [TestMethod]
+        public void TestHowManyStartsWithPrefix()
         {
-            ITrie trie = new Trie.Trie();
-            trie.Add("a");
-            trie.Add("aa");
-            trie.Add("aaa");
-            trie.Add("aab");
-            trie.Add("aac");
-            Assert.AreEqual(5, trie.HowManyStartsWithPrefix(""));
-            Assert.AreEqual(5, trie.HowManyStartsWithPrefix("a"));
-            Assert.AreEqual(4, trie.HowManyStartsWithPrefix("aa"));
-            Assert.AreEqual(1, trie.HowManyStartsWithPrefix("aab"));
-            Assert.AreEqual(0, trie.HowManyStartsWithPrefix("aabz"));
+            foreach (var str in _baseSourceString)
+            {
+                TrieForTest.Add(str);
+            }
+
+            int result = TrieForTest.HowManyStartsWithPrefix("");
+            int result1 = TrieForTest.HowManyStartsWithPrefix("a");
+            int result2 = TrieForTest.HowManyStartsWithPrefix("aa");
+            int result3 = TrieForTest.HowManyStartsWithPrefix("aab");
+            int result4 = TrieForTest.HowManyStartsWithPrefix("aabz");
+            Assert.AreEqual(5, result);
+            Assert.AreEqual(5, result1);
+            Assert.AreEqual(4, result2);
+            Assert.AreEqual(1, result3);
+            Assert.AreEqual(0, result4);
         }
 
-        [TestMethod()]
-        public void TrieMassAddRemoveTest()
+        [TestMethod]
+        public void TestTrieMassAddRemove()
         {
-            ITrie trie = new Trie.Trie();
-            String s1 = "asdasdyu2ge12bd1ui2re98fjauifbsdjkfnn21342342312asdfasfas";
-            String s2 = "zasfqr32jrb23hjrb2j3r23r32r23r23r32r";
+            const string s1 = "asdasdyu2ge12bd1ui2re98fjauifbsdjkfnn21342342312asdfasfas";
+            const string s2 = "zasfqr32jrb23hjrb2j3r23r32r23r23r32r";
+            int idealSize = 0;
+
+            // mass adding
             for (var i = 1; i <= s1.Length; ++i)
             {
-                trie.Add(s1.Substring(0, i));
-                Assert.AreEqual(i, trie.Size());
-            }
-
-            int curSize = trie.Size();
-            for (var i = 1; i <= s2.Length; ++i)
-            {
-                trie.Add(s2.Substring(0, i));
-                Assert.AreEqual(curSize + i, trie.Size());
-            }
-
-            curSize = trie.Size();
-
-            for (var i = 1; i <= s1.Length; ++i)
-            {
-                trie.Add(s1.Substring(0, i));
-                Assert.AreEqual(curSize, trie.Size());
-            }
-
-            for (var i = 1; i <= s1.Length; ++i)
-            {
-                trie.Remove(s1.Substring(0, i));
+                TrieForTest.Add(s1.Substring(0, i));
+                ++idealSize;
             }
 
             for (var i = 1; i <= s2.Length; ++i)
             {
-                trie.Remove(s2.Substring(0, i));
+                TrieForTest.Add(s2.Substring(0, i));
+                ++idealSize;
             }
 
-            Assert.AreEqual(0, trie.Size());
+            for (var i = 1; i <= s1.Length; ++i)
+            {
+                TrieForTest.Add(s1.Substring(0, i));
+            }
+
+            int sizeAfterMassAdding = TrieForTest.Size();
+
+            Assert.AreEqual(idealSize, sizeAfterMassAdding);
+
+            // mass removing
+            for (var i = 1; i <= s1.Length; ++i)
+            {
+                TrieForTest.Remove(s1.Substring(0, i));
+            }
+
+            for (var i = 1; i <= s2.Length; ++i)
+            {
+                TrieForTest.Remove(s2.Substring(0, i));
+            }
+
+            int sizeAfterMassRemoving = TrieForTest.Size();
+
+            Assert.AreEqual(0, sizeAfterMassRemoving);
         }
     }
 }
