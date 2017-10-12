@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace OptionHW
 {
-    public class Option<T>
+    public sealed class Option<T>
     {
         private readonly T _value;
 
@@ -34,10 +35,10 @@ namespace OptionHW
         public T Value
         {
             get
-            { 
+            {
                 if (IsNone)
                 {
-                    throw new NullReferenceException("Trying get value from 'Option.None' is ambiguous");
+                    throw new NullReferenceException();
                 }
 
                 return _value;
@@ -46,12 +47,30 @@ namespace OptionHW
 
         public Option<T2> Map<T2>(Func<T, T2> f)
         {
-            return IsNone ? new Option<T2>(f(_value)) : new Option<T2>();
+            return IsSome ? new Option<T2>(f(_value)) : new Option<T2>();
         }
 
         public static Option<T> Flatten(Option<Option<T>> option)
         {
             return option.IsSome ? option.Value : new Option<T>();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Option<T> option && EqualityComparer<T>.Default.Equals(_value, option._value);
+        }
+        
+        public override int GetHashCode()
+        {
+            return EqualityComparer<T>.Default.GetHashCode(_value);
+        }
+    }
+
+    public static class Option
+    {
+        public static Option<T> Some<T>(T value)
+        {
+            return Option<T>.Some(value);
         }
     }
 }
