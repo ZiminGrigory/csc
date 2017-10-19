@@ -2,11 +2,9 @@
 
 namespace Mini_RogueGame
 {
-    public delegate void ArrowHandler();
-
     public class EventLoop
     {
-        public void Run(ArrowHandler left, ArrowHandler right, ArrowHandler forward, ArrowHandler backward)
+        public void Run(Action left, Action right, Action forward, Action backward)
         {
             while (true)
             {
