@@ -44,6 +44,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlockingArrayQueueTest.cs" />
     <Compile Include="PhilosophersTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -51,6 +52,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BlockingArrayQueue\BlockingArrayQueue.csproj">
+      <Project>{9b306609-bc72-43d0-901a-53746542cc92}</Project>
+      <Name>BlockingArrayQueue</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DiningPhilosophersProblem\DiningPhilosophersProblem.csproj">
       <Project>{189297c8-a18f-4633-8668-7fdc1105c65c}</Project>
       <Name>DiningPhilosophersProblem</Name>
