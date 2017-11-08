@@ -1,0 +1,15 @@
+STARTED: running tests in assembly MyNUnit.ExcInTestOnly.dll
+TEST TestExpectedNullReferenceException SUCCESSFULLY FINISED
+TEST TestIgnored did not started (IGNORED)
+TEST TestNullReferenceException FAILED, because:
+UNHANDLED EXCEPTION: Exception has been thrown by the target of an invocation.
+WITH EXCEPTION: System.NullReferenceException
+WITH EXCEPTION MSG: PANIC
+GET FROM TestNullReferenceException
+TEST TestOne SUCCESSFULLY FINISED
+Total number of tests: 4
+Succeeded:             2
+Ignored:               1
+Failed:                1
+FINISHED: running tests in assembly MyNUnit.ExcInTestOnly.dll
+
