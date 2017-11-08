@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="LockBasedBlockingArrayQueue.cs" />
     <Compile Include="IBlockingArrayQueue.cs" />
+    <Compile Include="LockFreeBlockingArrayQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

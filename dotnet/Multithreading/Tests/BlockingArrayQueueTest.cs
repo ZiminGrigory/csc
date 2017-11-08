@@ -15,7 +15,8 @@ namespace Tests
         [SetUp]
         public void InitTest()
         {
-            _queue = new LockBasedBlockingArrayQueue<int>(MaxSize);
+            //_queue = new LockBasedBlockingArrayQueue<int>(MaxSize);
+            _queue = new LockFreeBlockingArrayQueue<int>(MaxSize);
         }
 
         [Test]
@@ -76,7 +77,7 @@ namespace Tests
                 thr.Start();
             }
 
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
 
             Assert.AreEqual(_queue.Size(), 0);
         }
