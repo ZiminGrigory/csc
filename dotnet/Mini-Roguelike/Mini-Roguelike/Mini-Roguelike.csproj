@@ -36,17 +36,17 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Directions.cs" />
+    <Compile Include="EventLoop.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="Map.cs" />
+    <Compile Include="Point.cs" />
     <Compile Include="ProgramHW.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rogue.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Mini-RogueGame\Mini-RogueGame.csproj">
-      <Project>{35af0a5e-b860-4e58-951d-eb8ad95547ca}</Project>
-      <Name>Mini-RogueGame</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

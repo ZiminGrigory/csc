@@ -1,5 +1,4 @@
 ﻿using System;
-using Mini_RogueGame;
 
 namespace Mini_Roguelike
 {
@@ -18,11 +17,16 @@ namespace Mini_Roguelike
                 {
                     var game = new Game(args[0]);
                     var eventLoop = new EventLoop();
-                    eventLoop.Run(game.HandleLeft, game.HandleRight, game.HandleForward, game.HandleBackward);
+                    eventLoop.Left += game.HandleLeft;
+                    eventLoop.Right += game.HandleRight;
+                    eventLoop.Forward += game.HandleForward;
+                    eventLoop.Backward += game.HandleBackward;
+                    eventLoop.Run();
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
+                    Console.WriteLine(e.Message);
                     throw;
                 }
             }

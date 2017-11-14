@@ -1,6 +1,4 @@
-﻿using Utils;
-
-namespace Mini_Rogue
+﻿namespace Mini_Roguelike
 {
     public class Rogue
     {

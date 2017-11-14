@@ -1,10 +1,7 @@
 ﻿using System;
 using System.IO;
-using ConsoleMap;
-using Mini_Rogue;
-using Utils;
 
-namespace Mini_RogueGame
+namespace Mini_Roguelike
 {
     public class Game
     {
@@ -15,27 +12,14 @@ namespace Mini_RogueGame
         {
             if (!File.Exists(pathToMap))
             {
-                throw new FileNotFoundException();
+                throw new FileNotFoundException($"File {pathToMap} doesn't exist or smth wrong with path");
             }
 
             _map = new Map(File.OpenText(pathToMap));
-            var flag = true;
-            for (var i = 0; i < _map.Height && flag; ++i)
+            Point roguePoint = null;
+            if (_map.GetRoguePoint(ref roguePoint))
             {
-                for (var j = 0; j < _map.Width; ++j)
-                {
-                    var curPoint = new Point {X = i, Y = j};
-                    if (_map.IsPosFree(curPoint))
-                    {
-                        _rogue = new Rogue(curPoint);
-                        flag = false;
-                        break;
-                    }
-                }
-            }
-
-            if (_rogue != null)
-            {
+                _rogue = new Rogue(roguePoint);
                 _map.PrintMapToConsole(true, _rogue.Position.X, _rogue.Position.Y);
             }
             else

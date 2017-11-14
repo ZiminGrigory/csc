@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using Utils;
+using System.Linq;
 
-namespace ConsoleMap
+namespace Mini_Roguelike
 {
     // represents map, where * -- means wall, ' ' -- free space, @ -- rogue
     // suppose thate map's area greater or equal than printableWidth x printableHeight
@@ -21,14 +22,24 @@ namespace ConsoleMap
         {
             try
             {
-                Height = int.Parse(mapReader.ReadLine());
+                var strings = mapReader.ReadToEnd().Split(Environment.NewLine.ToCharArray()
+                        , StringSplitOptions.RemoveEmptyEntries);
+                Height = strings.Length;
                 _map = new char[Height][];
-                for (var i = 0; i < Height; ++i)
+                var widthSet = new HashSet<int>();
+                var i = 0;
+                foreach (var str in strings)
                 {
-                    _map[i] = mapReader.ReadLine().ToCharArray();
+                    _map[i] = str.ToCharArray();
+                    widthSet.Add(_map[i++].Length);
                 }
 
-                Width = _map[0].Length;
+                if (widthSet.Count != 1)
+                {
+                    throw new FormatException();
+                }
+
+                Width = widthSet.First();
             }
             catch (Exception e)
             {
@@ -39,6 +50,36 @@ namespace ConsoleMap
         public bool IsPosFree(Point pos)
         {
             return 0 <= pos.X && 0 <= pos.Y && pos.X < Height && pos.Y < Width && _map[pos.X][pos.Y] == FreeChar;
+        }
+
+        public bool GetRoguePoint(ref Point pos)
+        {
+            Point freePoint = null;
+            for (var i = 0; i < Height; ++i)
+            {
+                for (var j = 0; j < Width; ++j)
+                {
+                    if (_map[i][j] == RogueChar)
+                    {
+                        pos = new Point {X = i, Y = j};
+                        return true;
+                    }
+
+                    var curPoint = new Point {X = i, Y = j};
+                    if (IsPosFree(curPoint) && freePoint == null)
+                    {
+                        freePoint = curPoint;
+                    }
+                }
+            }
+
+            if (freePoint == null)
+            {
+                return false;
+            }
+
+            pos = freePoint;
+            return true;
         }
 
         // suppose, that robot pos is valid
