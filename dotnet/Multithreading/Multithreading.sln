@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiningPhilosophersProblem", "DiningPhilosophersProblem\DiningPhilosophersProblem.csproj", "{189297C8-A18F-4633-8668-7FDC1105C65C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{773B6CEF-B04D-4368-AC7F-92935FA4D8D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockingArrayQueue", "BlockingArrayQueue\BlockingArrayQueue.csproj", "{9B306609-BC72-43D0-901A-53746542CC92}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{189297C8-A18F-4633-8668-7FDC1105C65C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{189297C8-A18F-4633-8668-7FDC1105C65C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{189297C8-A18F-4633-8668-7FDC1105C65C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{189297C8-A18F-4633-8668-7FDC1105C65C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{773B6CEF-B04D-4368-AC7F-92935FA4D8D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{773B6CEF-B04D-4368-AC7F-92935FA4D8D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{773B6CEF-B04D-4368-AC7F-92935FA4D8D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{773B6CEF-B04D-4368-AC7F-92935FA4D8D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B306609-BC72-43D0-901A-53746542CC92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B306609-BC72-43D0-901A-53746542CC92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B306609-BC72-43D0-901A-53746542CC92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B306609-BC72-43D0-901A-53746542CC92}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
